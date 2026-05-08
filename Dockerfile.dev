@@ -1,0 +1,20 @@
+FROM node:18-alpine
+
+WORKDIR /app
+
+# 1. Копируем только файлы зависимостей для кэширования
+COPY package*.json ./
+COPY *.lock* ./
+
+# 2. Устанавливаем ВСЕ зависимости (включая dev)
+RUN npm install
+
+# 3. Проверяем установку Vite
+RUN npm list vite || npm install vite --save-dev
+
+# 4. Копируем исходный код
+COPY . .
+
+EXPOSE 5173
+
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]

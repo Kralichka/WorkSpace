@@ -1,0 +1,26 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <script>
+      // Блокирующий скрипт, который выполняется ДО загрузки React
+      (function() {
+        const savedTheme = localStorage.getItem('theme');
+        const systemPreference = window.matchMedia('(prefers-color-scheme: dark)').matches 
+          ? 'dark' 
+          : 'light';
+        const theme = savedTheme || systemPreference;
+        
+        document.documentElement.classList.add(theme);
+        document.documentElement.setAttribute('data-theme', theme);
+      })();
+    </script>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.ico" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>WorkSpace</title>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

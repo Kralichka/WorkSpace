@@ -1,0 +1,17 @@
+version: '3.8'
+
+services:
+  react-app:
+    build:
+      context: .
+      dockerfile: Dockerfile  # если отдельный файл для dev
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app           # Монтируем код для hot reload
+      - /app/node_modules # Изолируем node_modules
+      - /app/dist  # Изолируем dist папку
+    environment:
+      - CHOKIDAR_USEPOLLING=true # Для отслеживания изменений в Docker
+    stdin_open: true
+    tty: true
